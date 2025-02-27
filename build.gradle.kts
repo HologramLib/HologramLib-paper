@@ -37,6 +37,8 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:4.17.0")
     implementation("com.github.technicallycoded:FoliaLib:main-SNAPSHOT")
 
+    implementation("com.github.HologramLib:AddonLib:1.0.9.2")
+
     library(kotlin("stdlib"))
     library(kotlin("reflect"))
 }
@@ -86,4 +88,9 @@ bukkit {
     foliaSupported = true
     depend = listOf("packetevents")
     softDepend = listOf("ItemsAdder")
+    commands {
+        register("hologramlib") {
+            description = "HologramLib admin commands"
+        }
+    }
 }
