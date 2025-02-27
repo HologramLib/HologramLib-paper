@@ -7,6 +7,9 @@ import com.maximde.hologramlib.hologram.HologramManager;
 import com.maximde.hologramlib.utils.BukkitTasks;
 import com.maximde.hologramlib.utils.ItemsAdderHolder;
 import com.maximde.hologramlib.utils.ReplaceText;
+import com.maximjsx.addonlib.core.AddonLib;
+import com.maximjsx.addonlib.util.LogLevel;
+import com.maximjsx.addonlib.util.Logger;
 import com.tcoded.folialib.FoliaLib;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
@@ -14,8 +17,11 @@ import me.tofaa.entitylib.APIConfig;
 import me.tofaa.entitylib.EntityLib;
 import me.tofaa.entitylib.spigot.SpigotEntityLibPlatform;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -60,6 +66,11 @@ public abstract class HologramLib {
         PacketEvents.getAPI().load();
     }
 
+    public static void init(PluginCommand command) {
+        init();
+        Objects.requireNonNull(command).setExecutor(new Command(new AddonLib((logLevel, message) -> Bukkit.getLogger().log(toJavaUtilLevel(logLevel), message), plugin.getDataFolder(), plugin.getDescription().getVersion())));
+    }
+
     public static void init() {
         if(plugin == null) {
             Bukkit.getLogger().log(Level.SEVERE,
@@ -88,10 +99,23 @@ public abstract class HologramLib {
             BukkitTasks.setPlugin(plugin);
             BukkitTasks.setFoliaLib(foliaLib);
 
+            new AddonLib((logLevel, message) -> Bukkit.getLogger().log(toJavaUtilLevel(logLevel), message), plugin.getDataFolder(), plugin.getDescription().getVersion())
+                    .setEnabledAddons(new String[]{"Commands"})
+                    .init();
+
         } catch (Exception e) {
             plugin.getLogger().log(Level.SEVERE, "Failed to enable HologramLib", e);
             Bukkit.getPluginManager().disablePlugin(plugin);
         }
+    }
+
+    public static Level toJavaUtilLevel(LogLevel logLevel) {
+        return switch (logLevel) {
+            case INFO -> Level.INFO;
+            case SUCCESS -> Level.FINE;
+            case WARNING -> Level.WARNING;
+            case ERROR -> Level.SEVERE;
+        };
     }
 
     private static void initializePacketEvents() {
