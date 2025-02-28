@@ -3,7 +3,6 @@ package com.maximde.hologramlib;
 
 import com.maximjsx.addonlib.core.AddonLib;
 import com.maximjsx.addonlib.model.AddonEntry;
-import lombok.AllArgsConstructor;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

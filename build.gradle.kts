@@ -37,7 +37,7 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:4.17.0")
     implementation("com.github.technicallycoded:FoliaLib:main-SNAPSHOT")
 
-    implementation("com.github.HologramLib:AddonLib:1.0.9.2")
+    implementation("com.github.HologramLib:AddonLib:1.1.0")
 
     library(kotlin("stdlib"))
     library(kotlin("reflect"))

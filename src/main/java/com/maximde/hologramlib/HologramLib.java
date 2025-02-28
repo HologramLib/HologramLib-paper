@@ -8,7 +8,6 @@ import com.maximde.hologramlib.utils.BukkitTasks;
 import com.maximde.hologramlib.utils.ItemsAdderHolder;
 import com.maximde.hologramlib.utils.ReplaceText;
 import com.maximjsx.addonlib.core.AddonLib;
-import com.maximjsx.addonlib.util.LogLevel;
 import com.maximjsx.addonlib.util.Logger;
 import com.tcoded.folialib.FoliaLib;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
@@ -17,7 +16,6 @@ import me.tofaa.entitylib.APIConfig;
 import me.tofaa.entitylib.EntityLib;
 import me.tofaa.entitylib.spigot.SpigotEntityLibPlatform;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -109,7 +107,7 @@ public abstract class HologramLib {
         }
     }
 
-    public static Level toJavaUtilLevel(LogLevel logLevel) {
+    public static Level toJavaUtilLevel(Logger.LogLevel logLevel) {
         return switch (logLevel) {
             case INFO -> Level.INFO;
             case SUCCESS -> Level.FINE;
