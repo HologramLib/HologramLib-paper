@@ -64,3 +64,4 @@ waffle.servlet
 waffle.util
 waffle.windows
 com.tcoded.folialib
+me.tofaa.entitylib
