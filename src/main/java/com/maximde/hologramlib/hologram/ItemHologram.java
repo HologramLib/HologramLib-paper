@@ -83,6 +83,7 @@ public class ItemHologram extends Hologram<ItemHologram> {
         meta.setOnFire(this.onFire);
         meta.setItem(this.item);
         meta.setGlowing(this.glowing);
+        if(super.brightness > -1) meta.setBrightnessOverride(super.brightness);
         meta.setGlowColorOverride(this.glowColor);
         return meta;
     }

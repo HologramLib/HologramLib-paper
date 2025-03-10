@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.player.PlayerManager;
 import com.maximde.hologramlib.bstats.Metrics;
 import com.maximde.hologramlib.hologram.HologramManager;
+import com.maximde.hologramlib.persistence.PersistenceManager;
 import com.maximde.hologramlib.utils.BukkitTasks;
 import com.maximde.hologramlib.utils.ItemsAdderHolder;
 import com.maximde.hologramlib.utils.ReplaceText;
@@ -17,6 +18,9 @@ import me.tofaa.entitylib.EntityLib;
 import me.tofaa.entitylib.spigot.SpigotEntityLibPlatform;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -40,6 +44,8 @@ public abstract class HologramLib {
 
     private static boolean initialized = false;
 
+    @Getter
+    private static PersistenceManager persistenceManager;
 
     public static Optional<HologramManager> getManager() {
         init();
@@ -97,6 +103,10 @@ public abstract class HologramLib {
             BukkitTasks.setPlugin(plugin);
             BukkitTasks.setFoliaLib(foliaLib);
 
+            persistenceManager = new PersistenceManager();
+            hologramManager = new HologramManager(persistenceManager);
+            persistenceManager.loadHolograms();
+
             new AddonLib((logLevel, message) -> Bukkit.getLogger().log(toJavaUtilLevel(logLevel), message), plugin.getDataFolder(), plugin.getDescription().getVersion())
                     .setEnabledAddons(new String[]{"Commands"})
                     .init();
@@ -104,6 +114,20 @@ public abstract class HologramLib {
         } catch (Exception e) {
             plugin.getLogger().log(Level.SEVERE, "Failed to enable HologramLib", e);
             Bukkit.getPluginManager().disablePlugin(plugin);
+        }
+    }
+
+    public static void onDisable() {
+        savePersistentHolograms();
+    }
+
+    public static void savePersistentHolograms() {
+        if (persistenceManager != null && hologramManager != null) {
+            Bukkit.getLogger().log(Level.INFO, "Saving all persistent holograms before shutdown...");
+            for (String id : persistenceManager.getPersistentHolograms()) {
+                hologramManager.getHologram(id).ifPresent(persistenceManager::saveHologram);
+            }
+            Bukkit.getLogger().log(Level.INFO, "Persistent holograms saved successfully.");
         }
     }
 
@@ -129,7 +153,6 @@ public abstract class HologramLib {
 
     private static void initializeManagers() {
         playerManager = PacketEvents.getAPI().getPlayerManager();
-        hologramManager = new HologramManager();
         plugin.getLogger().log(Level.INFO, "Initialized HologramLib Manager!");
     }
 

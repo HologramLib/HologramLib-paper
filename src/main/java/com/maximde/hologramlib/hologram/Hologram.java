@@ -53,6 +53,9 @@ public abstract class Hologram<T extends Hologram<T>> {
     @Getter @Accessors(chain = true)
     protected double viewRange = 1.0;
 
+    @Getter @Accessors(chain = true)
+    protected int brightness = -1;
+
     @Getter
     protected final String id;
 

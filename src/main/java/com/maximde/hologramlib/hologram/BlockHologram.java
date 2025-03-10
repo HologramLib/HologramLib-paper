@@ -54,6 +54,7 @@ public class BlockHologram extends Hologram<BlockHologram> {
         meta.setLeftRotation(this.leftRotation);
         meta.setRightRotation(this.rightRotation);
         meta.setOnFire(this.onFire);
+        if(super.brightness > -1) meta.setBrightnessOverride(super.brightness);
         meta.setGlowing(this.glowing);
         meta.setGlowColorOverride(this.glowColor);
         return meta;
