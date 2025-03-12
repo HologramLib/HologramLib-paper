@@ -17,6 +17,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Transformation;
+import org.joml.AxisAngle4f;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.*;
@@ -320,6 +324,50 @@ public abstract class Hologram<T extends Hologram<T>> {
 
     public T setTranslation(Vector3F translation) {
         this.translation = new Vector3f(translation.x, translation.y, translation.z);
+        return self();
+    }
+
+    public T setTransformation(Transformation transformation) {
+        this.translation = transformation.getTranslation();
+        this.scale = transformation.getScale();
+        Quaternionf rightRotation = transformation.getRightRotation();
+        this.rightRotation = new Quaternion4f(rightRotation.x(), rightRotation.y(), rightRotation.z(), rightRotation.w());
+        Quaternionf leftRotation = transformation.getLeftRotation();
+        this.leftRotation = new Quaternion4f(leftRotation.x(), leftRotation.y(), leftRotation.z(), leftRotation.w());
+        return self();
+    }
+
+    public T setTransformationMatrix(Matrix4f matrix4f) {
+        Vector3f translation = new Vector3f();
+        matrix4f.getTranslation(translation);
+        this.translation = translation;
+        Vector3f scale = new Vector3f();
+        matrix4f.getScale(scale);
+        this.scale = scale;
+        this.rightRotation = new Quaternion4f(0,0,0,1);
+        Quaternionf leftRotation = new Quaternionf();
+        matrix4f.getNormalizedRotation(leftRotation);
+        this.leftRotation = new Quaternion4f(leftRotation.x(), leftRotation.y(), leftRotation.z(), leftRotation.w());
+        return self();
+    }
+
+    public T setBrightness(int brightness) {
+        this.brightness = brightness;
+        return self();
+    }
+
+    public T setBrightness(Display.Brightness brightness) {
+        return self().setBrightness(brightness.getBlockLight(), brightness.getSkyLight());
+    }
+
+    public T setBrightness(int blockLight, int skyLight) {
+        if (blockLight < 0 || blockLight > 15) {
+            throw new IllegalArgumentException("blockLight must be between 0 and 15");
+        }
+        if (skyLight < 0 || skyLight > 15) {
+            throw new IllegalArgumentException("skyLight must be between 0 and 15");
+        }
+        this.brightness = blockLight << 4 | skyLight << 20;
         return self();
     }
 
