@@ -13,7 +13,6 @@ import me.tofaa.entitylib.meta.display.TextDisplayMeta;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.TextDisplay;
 import org.joml.Vector3f;
 
@@ -130,7 +129,7 @@ public class TextHologram extends Hologram<TextHologram> {
         meta.setBackgroundColor(this.backgroundColor);
         meta.setTextOpacity(this.textOpacity);
         meta.setShadow(this.shadow);
-        if(super.brightness.getBlockLight() > -1 && super.brightness.getSkyLight() > -1) ((TextDisplay) this.entity).setBrightness(super.brightness);
+        if(super.brightness > -1) meta.setBrightnessOverride(super.brightness);
         meta.setSeeThrough(this.seeThroughBlocks);
         setInternalAlignment(meta);
         return meta;

@@ -9,7 +9,6 @@ import lombok.experimental.Accessors;
 import me.tofaa.entitylib.meta.EntityMeta;
 import me.tofaa.entitylib.meta.display.AbstractDisplayMeta;
 import me.tofaa.entitylib.meta.display.BlockDisplayMeta;
-import org.bukkit.entity.BlockDisplay;
 import org.joml.Vector3f;
 
 import java.awt.*;
@@ -55,7 +54,7 @@ public class BlockHologram extends Hologram<BlockHologram> {
         meta.setLeftRotation(this.leftRotation);
         meta.setRightRotation(this.rightRotation);
         meta.setOnFire(this.onFire);
-        if(super.brightness.getBlockLight() > -1 && super.brightness.getSkyLight() > -1) ((BlockDisplay) this.entity).setBrightness(super.brightness);
+        if(super.brightness > -1) meta.setBrightnessOverride(super.brightness);
         meta.setGlowing(this.glowing);
         meta.setGlowColorOverride(this.glowColor);
         return meta;

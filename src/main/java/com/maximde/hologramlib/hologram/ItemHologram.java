@@ -11,8 +11,6 @@ import lombok.experimental.Accessors;
 import me.tofaa.entitylib.meta.EntityMeta;
 import me.tofaa.entitylib.meta.display.AbstractDisplayMeta;
 import me.tofaa.entitylib.meta.display.ItemDisplayMeta;
-import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.ItemDisplay;
 import org.joml.Vector3f;
 
 
@@ -85,7 +83,7 @@ public class ItemHologram extends Hologram<ItemHologram> {
         meta.setOnFire(this.onFire);
         meta.setItem(this.item);
         meta.setGlowing(this.glowing);
-        if(super.brightness.getBlockLight() > -1 && super.brightness.getSkyLight() > -1) ((ItemDisplay) this.entity).setBrightness(super.brightness);
+        if(super.brightness > -1) meta.setBrightnessOverride(super.brightness);
         meta.setGlowColorOverride(this.glowColor);
         return meta;
     }
