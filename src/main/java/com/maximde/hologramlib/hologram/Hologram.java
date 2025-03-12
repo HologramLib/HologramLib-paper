@@ -54,7 +54,7 @@ public abstract class Hologram<T extends Hologram<T>> {
     protected double viewRange = 1.0;
 
     @Getter @Accessors(chain = true)
-    protected int brightness = -1;
+    protected Display.Brightness brightness = new Display.Brightness(-1,-1);
 
     @Getter
     protected final String id;
