@@ -329,7 +329,17 @@ public abstract class Hologram<T extends Hologram<T>> {
     }
 
     public T setBrightness(Display.Brightness brightness) {
-        this.brightness = brightness.getBlockLight() << 4 | brightness.getSkyLight() << 20;
+        return self().setBrightness(brightness.getBlockLight(), brightness.getSkyLight());
+    }
+
+    public T setBrightness(int blockLight, int skyLight) {
+        if (blockLight < 0 || blockLight > 15) {
+            throw new IllegalArgumentException("blockLight must be between 0 and 15");
+        }
+        if (skyLight < 0 || skyLight > 15) {
+            throw new IllegalArgumentException("skyLight must be between 0 and 15");
+        }
+        this.brightness = blockLight << 4 | skyLight << 20;
         return self();
     }
 
