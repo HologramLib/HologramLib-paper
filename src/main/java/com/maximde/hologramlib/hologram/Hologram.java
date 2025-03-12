@@ -17,6 +17,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Transformation;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.*;
@@ -320,6 +322,16 @@ public abstract class Hologram<T extends Hologram<T>> {
 
     public T setTranslation(Vector3F translation) {
         this.translation = new Vector3f(translation.x, translation.y, translation.z);
+        return self();
+    }
+
+    public T setTransformation(Transformation transformation) {
+        this.translation = transformation.getTranslation();
+        this.scale = transformation.getScale();
+        Quaternionf rightRotation = transformation.getRightRotation();
+        this.rightRotation = new Quaternion4f(rightRotation.x(), rightRotation.y(), rightRotation.z(), rightRotation.w());
+        Quaternionf leftRotation = transformation.getLeftRotation();
+        this.leftRotation = new Quaternion4f(leftRotation.x(), leftRotation.y(), leftRotation.z(), leftRotation.w());
         return self();
     }
 
