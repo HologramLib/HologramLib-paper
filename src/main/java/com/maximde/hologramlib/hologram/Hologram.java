@@ -323,11 +323,6 @@ public abstract class Hologram<T extends Hologram<T>> {
         return self();
     }
 
-    public T setBrightness(Display.Brightness brightness) {
-        this.brightness = brightness;
-        return self();
-    }
-
     public T addViewer(Player player) {
         this.entity.addViewer(player.getUniqueId());
         return self();
