@@ -32,6 +32,10 @@ public class BlockHologram extends Hologram<BlockHologram> {
     @Accessors(chain = true)
     protected int glowColor = Color.YELLOW.getRGB();
 
+    public BlockHologram(String id) {
+        this(id, RenderMode.ALL);
+    }
+
     public BlockHologram(String id, RenderMode renderMode) {
         super(id, renderMode, EntityTypes.BLOCK_DISPLAY);
     }

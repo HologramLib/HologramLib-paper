@@ -88,26 +88,12 @@ public class HologramManager {
     public <H extends Hologram<H>> H spawn(H hologram, Location location, boolean persistent) {
         BukkitTasks.runTask(() -> {
             hologram.getInternalAccess().spawn(location).update();
+            this.register(hologram);
+            if (persistent && persistenceManager != null) {
+                persistenceManager.saveHologram(hologram);
+            }
         });
-        this.register(hologram, persistent);
         return hologram;
-    }
-
-    public <H extends Hologram<H>> boolean register(H hologram, boolean persistent) {
-        if (hologram == null) {
-            return false;
-        }
-        if (hologramsMap.containsKey(hologram.getId())) {
-            Bukkit.getLogger().severe("Error: Hologram with ID " + hologram.getId() + " is already registered.");
-            return false;
-        }
-        hologramsMap.put(hologram.getId(), hologram);
-
-        if (persistent && persistenceManager != null) {
-            persistenceManager.saveHologram(hologram);
-        }
-
-        return true;
     }
 
     public void attach(Hologram<?> hologram, int entityID) {
