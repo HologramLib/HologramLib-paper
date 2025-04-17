@@ -3,9 +3,9 @@
   
   [![Discord](https://img.shields.io/badge/Discord_Server-7289DA?style=flat&logo=discord&logoColor=white)](https://discord.gg/2UTkYj26B4)
   [![Wiki](https://img.shields.io/badge/Documentation-Wiki-2dad10)](https://github.com/HologramLib/HologramLib/wiki)
-  [![JitPack](https://jitpack.io/v/HologramLib/HologramLib.svg)](https://jitpack.io/#HologramLib/HologramLib)
+  [![JitPack](https://jitpack.io/v/HologramLib/HologramLib-paper.svg)](https://jitpack.io/#HologramLib/HologramLib)
   [![JavaDocs](https://img.shields.io/badge/API-Docs-2ECC71)](https://HologramLib.github.io/HologramLib/)
-  [![GitHub Downloads](https://img.shields.io/github/downloads/HologramLib/HologramLib/total?color=2ECC71)](https://github.com/HologramLib/HologramLib/releases)
+  [![GitHub Downloads](https://img.shields.io/github/downloads/HologramLib/HologramLib-paper/total?color=2ECC71)](https://github.com/HologramLib/HologramLib-paper/releases)
 
 
   <p>Leave a :star: if you like this library :octocat:</p>
